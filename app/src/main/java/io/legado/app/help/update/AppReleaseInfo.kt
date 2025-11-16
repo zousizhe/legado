@@ -19,11 +19,12 @@ data class AppReleaseInfo(
 enum class AppVariant {
     OFFICIAL,
     BETA_RELEASEA,
+    BETA_RELEASER,
     BETA_RELEASE,
     UNKNOWN;
 
     fun isBeta(): Boolean {
-        return this == BETA_RELEASE || this == BETA_RELEASEA
+        return this == BETA_RELEASE || this == BETA_RELEASER || this == BETA_RELEASEA
     }
 
 }
@@ -81,6 +82,7 @@ data class Asset(
 
         val appVariant = when {
             preRelease && name.contains("releaseA") -> AppVariant.BETA_RELEASEA
+            preRelease && name.contains("releaseR") -> AppVariant.BETA_RELEASER
             preRelease && name.contains("release") -> AppVariant.BETA_RELEASE
             else -> AppVariant.OFFICIAL
         }
@@ -103,6 +105,7 @@ data class GiteeAsset(
 
         val appVariant = when {
             preRelease && name.contains("releaseA") -> AppVariant.BETA_RELEASEA
+            preRelease && name.contains("releaseR") -> AppVariant.BETA_RELEASER
             preRelease && name.contains("release") -> AppVariant.BETA_RELEASE
             else -> AppVariant.OFFICIAL
         }
